@@ -252,14 +252,6 @@
                                 <argument>com.github.bannmann.foundation.Builder</argument>
                                 <argument>${generated.projects-root-dir}</argument>
                                 <argument>${project.version}</argument>
-                                <argument>ag</argument>
-                                <argument>api</argument>
-                                <argument>jib</argument>
-                                <argument>jooq</argument>
-                                <argument>kee</argument>
-                                <argument>lombok</argument>
-                                <argument>mizool</argument>
-                                <argument>ossrh</argument>
                             </arguments>
                         </configuration>
                     </execution>

@@ -5,9 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.puretemplate.Loader;
 import org.puretemplate.Template;
@@ -28,15 +25,22 @@ public class Builder
         Path directory = Path.of(args[0]);
         String version = args[1];
 
-        TreeSet<String> combinableAspects = Stream.of(args)
-            .skip(2)
-            .collect(Collectors.toCollection(TreeSet::new));
+        Set<String> combinableAspects = Set.of("ag", "api", "jib", "jooq", "kee", "lombok", "mizool", "ossrh");
+
+        Set<Set<String>> impossibleCombinations = Set.of(Set.of("api", "jib"), Set.of("jib", "ossrh"));
 
         LinkedHashSet<String> allAspects = new LinkedHashSet<>(combinableAspects);
         allAspects.add("11");
+        // TODO generate everything for JDK 11 and 17 (or 17 and 21?)
 
         for (Set<String> selectedCombination : Sets.powerSet(combinableAspects))
         {
+            if (impossibleCombinations.stream()
+                .anyMatch(selectedCombination::containsAll))
+            {
+                continue;
+            }
+
             Set<String> currentAspects = new LinkedHashSet<>(selectedCombination);
             currentAspects.add("11");
 
