@@ -11,6 +11,20 @@
     <artifactId>%name%</artifactId>
     <packaging>pom</packaging>
 
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+        %!           TODO: implement "ag" aspect           !%
+        %!                                                 !%
+        %!           TODO: implement "ossrh" aspect        !%
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+        %!                                                 !%
+
     <properties>
         % if (aspects.api && aspects.lombok) %
             <javadoc.sources.directory>${project.build.directory}/generated-sources/delombok-for-javadoc</javadoc.sources.directory>
