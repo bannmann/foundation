@@ -26,9 +26,9 @@ public class Builder
         Path directory = Path.of(args[0]);
         String version = args[1];
 
-        Set<String> standardAspects = Set.of("gf", "lombok", "mizool");
+        Set<String> standardAspects = Set.of("gitflow", "lombok", "mizool");
 
-        Set<String> optionalAspects = Set.of("ag", "api", "jib", "jooq", "kee", "ossrh");
+        Set<String> optionalAspects = Set.of("api", "jib", "jooq", "kumuluz", "ossrh", "silverchain");
 
         // TODO generate everything for JDK 11 and 17 (or 17 and 21?)
         Set<String> jdks = Set.of("11");

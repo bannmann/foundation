@@ -16,11 +16,11 @@
         %!                                                           !%
         %!                                                           !%
         %!                                                           !%
-        %!           TODO: implement "ag" aspect                     !%
+        %!           TODO: implement "silverchain" aspect            !%
         %!                                                           !%
         %!           TODO: implement "ossrh" aspect                  !%
         %!                                                           !%
-        %!           TODO: implement "gf" (gitflow) aspect           !%
+        %!           TODO: implement "gitflow" aspect                !%
         %!                                                           !%
         %!                                                           !%
         %!                                                           !%
@@ -36,12 +36,12 @@
             <jooq.version>3.16.3</jooq.version>
         % endif %
 
-        % if (aspects.kee) %
+        % if (aspects.kumuluz) %
             <kumuluzee-config-mp.version>1.4.1</kumuluzee-config-mp.version>
             <kumuluzee.version>3.12.1</kumuluzee.version>
         % endif %
 
-        % if (aspects.kee && aspects.mizool) %
+        % if (aspects.kumuluz && aspects.mizool) %
             <bannmann-labs.version>0.0.5</bannmann-labs.version>
             <!-- jersey.version must match the one from KumuluzEE -->
             <jersey.version>2.32</jersey.version>
@@ -77,7 +77,7 @@
                 </dependency>
             % endif %
 
-            % if (aspects.kee) %
+            % if (aspects.kumuluz) %
                 <dependency>
                     <groupId>com.kumuluz.ee</groupId>
                     <artifactId>kumuluzee-bom</artifactId>
@@ -92,7 +92,7 @@
                 </dependency>
             % endif %
 
-            % if (aspects.kee && aspects.mizool) %
+            % if (aspects.kumuluz && aspects.mizool) %
                 <dependency>
                     <groupId>com.github.bannmann.labs</groupId>
                     <artifactId>kumuluzee-errorhandling</artifactId>
@@ -139,7 +139,7 @@
             </dependency>
         % endif %
 
-        % if (aspects.kee && aspects.mizool) %
+        % if (aspects.kumuluz && aspects.mizool) %
             <dependency>
                 <groupId>com.github.bannmann.labs</groupId>
                 <artifactId>kumuluzee-errorhandling</artifactId>
@@ -189,7 +189,7 @@
                                 <image>${foundation.jib.image}</image>
                             </to>
 
-                            % if (aspects.kee) %
+                            % if (aspects.kumuluz) %
                                 <!--
 %!    !%                            recommended minimal run.sh:
 %!    !%                                #!/bin/sh
@@ -234,7 +234,7 @@
 
                         </configuration>
 
-                        % if (aspects.kee) %
+                        % if (aspects.kumuluz) %
                             <dependencies>
                                 <dependency>
                                     <groupId>com.google.cloud.tools</groupId>
@@ -309,7 +309,7 @@
                     </plugin>
                 % endif %
 
-                % if (aspects.kee) %
+                % if (aspects.kumuluz) %
                     <plugin>
                         <groupId>com.kumuluz.ee</groupId>
                         <artifactId>kumuluzee-maven-plugin</artifactId>
