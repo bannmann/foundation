@@ -11,19 +11,21 @@
     <artifactId>%name%</artifactId>
     <packaging>pom</packaging>
 
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
-        %!           TODO: implement "ag" aspect           !%
-        %!                                                 !%
-        %!           TODO: implement "ossrh" aspect        !%
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
-        %!                                                 !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!           TODO: implement "ag" aspect                     !%
+        %!                                                           !%
+        %!           TODO: implement "ossrh" aspect                  !%
+        %!                                                           !%
+        %!           TODO: implement "gf" (gitflow) aspect           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
+        %!                                                           !%
 
     <properties>
         % if (aspects.api && aspects.lombok) %

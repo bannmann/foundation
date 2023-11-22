@@ -11,6 +11,7 @@ import org.puretemplate.Template;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.google.common.collect.Streams;
 
 public class Builder
 {
@@ -25,38 +26,52 @@ public class Builder
         Path directory = Path.of(args[0]);
         String version = args[1];
 
-        Set<String> combinableAspects = Set.of("ag", "api", "jib", "jooq", "kee", "lombok", "mizool", "ossrh");
+        Set<String> standardAspects = Set.of("gf", "lombok", "mizool");
+
+        Set<String> optionalAspects = Set.of("ag", "api", "jib", "jooq", "kee", "ossrh");
+
+        // TODO generate everything for JDK 11 and 17 (or 17 and 21?)
+        Set<String> jdks = Set.of("11");
 
         Set<Set<String>> impossibleCombinations = Set.of(Set.of("api", "jib"), Set.of("jib", "ossrh"));
 
-        LinkedHashSet<String> allAspects = new LinkedHashSet<>(combinableAspects);
-        allAspects.add("11");
-        // TODO generate everything for JDK 11 and 17 (or 17 and 21?)
+        LinkedHashSet<String> allAspects = new LinkedHashSet<>();
+        allAspects.addAll(standardAspects);
+        allAspects.addAll(optionalAspects);
+        allAspects.addAll(jdks);
 
-        for (Set<String> selectedCombination : Sets.powerSet(combinableAspects))
+        for (Set<String> selectedOptionalAspects : Sets.powerSet(optionalAspects))
         {
-            if (impossibleCombinations.stream()
-                .anyMatch(selectedCombination::containsAll))
+            for (String jdk : jdks)
             {
-                continue;
+                Set<String> currentAspects = new LinkedHashSet<>();
+                Streams.concat(standardAspects.stream(), selectedOptionalAspects.stream())
+                    .sorted()
+                    .forEachOrdered(currentAspects::add);
+                currentAspects.add(jdk);
+
+                // Some optional aspects may be mutually exclusive, or incompatible with certain JDKs
+                if (impossibleCombinations.stream()
+                    .anyMatch(currentAspects::containsAll))
+                {
+                    continue;
+                }
+
+                String name = String.join("-", currentAspects);
+
+                Path projectDirectory = directory.resolve(name);
+                Files.createDirectories(projectDirectory);
+
+                Path pomFile = projectDirectory.resolve("pom.xml");
+
+                template.createContext()
+                    .add("name", name)
+                    .add("version", version)
+                    .add("aspects", buildFlagsMap(allAspects, currentAspects))
+                    .render()
+                    .intoFile(pomFile);
             }
 
-            Set<String> currentAspects = new LinkedHashSet<>(selectedCombination);
-            currentAspects.add("11");
-
-            String name = String.join("-", currentAspects);
-
-            Path projectDirectory = directory.resolve(name);
-            Files.createDirectories(projectDirectory);
-
-            Path pomFile = projectDirectory.resolve("pom.xml");
-
-            template.createContext()
-                .add("name", name)
-                .add("version", version)
-                .add("aspects", buildFlagsMap(allAspects, currentAspects))
-                .render()
-                .intoFile(pomFile);
         }
     }
 
